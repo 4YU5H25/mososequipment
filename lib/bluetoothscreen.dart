@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'dart:async';
+import 'dart:ffi';
 import 'package:biomedicalfinal/screen3.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,20 +11,26 @@ import 'package:permission_handler/permission_handler.dart';
 class Bluetooth {
   static late BluetoothConnection? connection;
   static bool isConnected = false;
-  static String deviceAddress = "C8:F0:9E:48:C4:F6";
-  static List<int> receivedDataList = [];
-  static int area = 0;
+  static String deviceAddress = "00:22:12:02:49:07";
+  static List<double> receivedDataList = [];
+  static double area = 0;
 
   static Future<void> connectToDevice(String address) async {
+    Bluetooth.connection = await BluetoothConnection.toAddress(address);
+    String pass = '1234';
+    pass = pass.trim();
     try {
-      Bluetooth.connection = await BluetoothConnection.toAddress(address);
+      List<int> list = pass.codeUnits;
+      Uint8List bytes = Uint8List.fromList(list);
+      connection!.output.add(bytes);
+      await connection!.output.allSent;
       isConnected = true;
       print('Connected to Arduino');
 
       connection!.input!.listen((Uint8List data) {
         // Handle received data as needed
         String receivedData = String.fromCharCodes(data);
-        int parsedData = data.first;
+        double parsedData = (data.first/10);
         area += parsedData;
         print('Received Data packet: ${data.join(', ')}');
 
@@ -185,7 +192,6 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
             child: Text("Connect to Arduino"),
             onPressed: () async {
               print('Connect Button pressed');
-              await Bluetooth.connectToDevice(Bluetooth.deviceAddress);
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
@@ -193,6 +199,7 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
                   },
                 ),
               );
+              await Bluetooth.connectToDevice(Bluetooth.deviceAddress);
             },
           ),
         ],

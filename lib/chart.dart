@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 class Chart extends StatefulWidget {
-  final List<int> chartData;
+  final List<double> chartData;
 
   Chart({Key? key, required this.chartData}) : super(key: key);
 
@@ -16,7 +16,7 @@ class _ChartState extends State<Chart> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height/2,
+      height: MediaQuery.of(context).size.height / 2,
       width: MediaQuery.of(context).size.width,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -43,7 +43,7 @@ class _ChartState extends State<Chart> {
               titlesData: FlTitlesData(
                 leftTitles: AxisTitles(
                   axisNameWidget: Text(
-                    "Length(mm)",
+                    "Length(cm)",
                     style: TextStyle(
                       color: Color.fromARGB(255, 255, 255, 255),
                       fontSize: 16,
@@ -75,7 +75,8 @@ class _ChartState extends State<Chart> {
                   spots: widget.chartData
                       .asMap()
                       .entries
-                      .map((entry) => FlSpot(entry.key.toDouble(), entry.value.toDouble()))
+                      .map((entry) =>
+                          FlSpot(entry.key.toDouble(), entry.value.toDouble()))
                       .toList(),
                   isCurved: true,
                   color: Color.fromARGB(255, 228, 224, 0),

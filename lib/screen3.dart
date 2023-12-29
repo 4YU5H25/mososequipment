@@ -37,8 +37,8 @@ class _screenthreeState extends State<screenthree> {
   // =========== CHART ==================//
 
   bool isChartVisible = true;
-  List<int> chartData = [];
-  int area = 0;
+  List<double> chartData = [];
+  double area = 0;
   //============BLUETOOTH===========//
   bool receiving = true;
 
@@ -428,7 +428,7 @@ class _screenthreeState extends State<screenthree> {
         //         ?.elementAt(Bluetooth.receivedDataList!.length - 2) ??
         //     '';
 
-        int parsedData = Bluetooth.receivedDataList
+        double parsedData = Bluetooth.receivedDataList
             .elementAt(Bluetooth.receivedDataList.length - 1);
         area = Bluetooth.area;
         setState(() {
