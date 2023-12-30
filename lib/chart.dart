@@ -5,7 +5,6 @@ import 'package:fl_chart/fl_chart.dart';
 
 class Chart extends StatefulWidget {
   final List<double> chartData;
-
   Chart({Key? key, required this.chartData}) : super(key: key);
 
   @override
@@ -37,7 +36,7 @@ class _ChartState extends State<Chart> {
             LineChartData(
               minX: 0,
               minY: 0,
-              maxX: 100,
+              maxX: 120,
               maxY: 100,
               backgroundColor: Color.fromARGB(125, 0, 0, 0),
               titlesData: FlTitlesData(
