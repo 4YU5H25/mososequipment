@@ -37,7 +37,7 @@ class _ChartState extends State<Chart> {
             LineChartData(
               minX: 0,
               minY: 0,
-              maxX: 60,
+              maxX: 100,
               maxY: 100,
               backgroundColor: Color.fromARGB(125, 0, 0, 0),
               titlesData: FlTitlesData(
