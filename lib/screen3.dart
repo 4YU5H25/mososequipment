@@ -342,6 +342,9 @@ class _screenthreeState extends State<screenthree> {
                                     print("Start Button Pressed");
                                     setState(() {
                                       receiving = true;
+                                      chartData.clear();
+                                      Bluetooth.receivedDataList.clear();
+                                      Bluetooth.receivedDataList.add(0);
                                     });
 
                                     startListeningAndUpdateChart();
@@ -433,8 +436,10 @@ class _screenthreeState extends State<screenthree> {
         area = Bluetooth.area;
         setState(() {
           chartData.add(parsedData);
-          print("Chart data updated: $chartData");
-          print('area: $area');
+          if (kDebugMode) {
+            print("Chart data updated: $chartData");
+            print('area: $area');
+          }
         });
         await Future.delayed(Duration(milliseconds: 1000));
       }
