@@ -189,7 +189,7 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ElevatedButton(
-            child: Text("Connect to Arduino"),
+            child: Text("Connect to Device"),
             onPressed: () async {
               print('Connect Button pressed');
               Navigator.of(context).push(

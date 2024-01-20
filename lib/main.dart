@@ -17,7 +17,7 @@ class myapp extends StatelessWidget{
   Widget build(BuildContext context)
   {
     return MaterialApp(
-      home:splashscreenfinal(),
+      home:splashscreenfinal(), 
         routes:{
 
           '/screentwo':(context) =>BluetoothScreen(), 
