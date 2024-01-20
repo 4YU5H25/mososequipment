@@ -16,14 +16,14 @@ class myapp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         home: splashscreenfinal(),
-        theme: ThemeData(appBarTheme: AppBarTheme(backgroundColor: Colors.red)),
+        theme: ThemeData(
+          appBarTheme: AppBarTheme(backgroundColor: Colors.red),
+        ),
         debugShowCheckedModeBanner: false,
         routes: {
           '/screentwo': (context) => BluetoothScreen(),
           '/screenthree': (context) => screenthree(),
-
           '/screenfour': (context) => Report(),
         });
-        
   }
 }

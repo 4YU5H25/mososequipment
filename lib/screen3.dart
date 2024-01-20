@@ -347,13 +347,13 @@ class _screenthreeState extends State<screenthree> {
                                         Bluetooth.receivedDataList.clear();
                                         Bluetooth.receivedDataList.add(0);
                                       });
-                      
+
                                       startListeningAndUpdateChart();
                                     }),
                               ),
                             ),
                             SizedBox(
-                              width: MediaQuery.of(context).size.width/4,
+                              width: MediaQuery.of(context).size.width / 4,
                             ),
                             Padding(
                               padding: EdgeInsets.only(right: 10),
@@ -369,7 +369,9 @@ class _screenthreeState extends State<screenthree> {
                                       alignment: Alignment.center,
                                       child: const Text('STOP')),
                                   onPressed: () async {
-                                    print("Stop  Button Pressed");
+                                    if (kDebugMode) {
+                                      print("Stop  Button Pressed");
+                                    }
                                     Bluetooth.stopBluetooth();
                                     setState(() {
                                       receiving = false;
@@ -377,7 +379,7 @@ class _screenthreeState extends State<screenthree> {
                                       Bluetooth.receivedDataList.clear();
                                       Bluetooth.receivedDataList.add(0);
                                     });
-                      
+
                                     if (_formKey.currentState?.validate() ??
                                         false) {
                                       String username = _name.text;
@@ -386,7 +388,7 @@ class _screenthreeState extends State<screenthree> {
                                       String sex = _sex.text;
                                       String visit = _visitno.text;
                                       String weight = _weight.text;
-                      
+
                                       await DatabaseHelper().insertUserData(
                                         username: username,
                                         age: age,
@@ -396,7 +398,7 @@ class _screenthreeState extends State<screenthree> {
                                         id: id,
                                         weight: weight.toString(),
                                       );
-                      
+
                                       print("Data saved successfully");
                                       Navigator.of(context).push(
                                           MaterialPageRoute(builder: (context) {
