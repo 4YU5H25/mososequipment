@@ -2,8 +2,14 @@
 
 import 'package:biomedicalfinal/db/database.dart';
 import 'package:flutter/material.dart';
+import 'package:pdf/pdf.dart';
 
-class screenfour extends StatelessWidget {
+class Report extends StatelessWidget {
+  late final String? name, id, age, sex, visit, weight, area;
+
+  Report({this.name, this.id, this.age, this.sex, this.visit, this.weight,
+      this.area});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +47,10 @@ class screenfour extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             child: DataTable(
               columns: [
-                DataColumn(label: Text('Patient',)),
+                DataColumn(
+                    label: Text(
+                  'Patient',
+                )),
                 DataColumn(label: Text('Age')),
                 DataColumn(label: Text('Id')),
                 DataColumn(label: Text('Gender')),

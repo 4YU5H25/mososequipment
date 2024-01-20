@@ -321,92 +321,101 @@ class _screenthreeState extends State<screenthree> {
                       SizedBox(
                         height: 22,
                       ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.only(left: 10),
-                            child: SizedBox(
-                              width: 120,
-                              height: 76,
-                              child: ElevatedButton(
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: 10),
+                              child: SizedBox(
+                                width: 120,
+                                height: 76,
+                                child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      shape: const StadiumBorder(),
+                                      backgroundColor: Colors.orange,
+                                    ),
+                                    child: Center(child: const Text('START')),
+                                    onPressed: () async {
+                                      if (Bluetooth.connection == null) {
+                                        await Bluetooth.connectToDevice(
+                                            Bluetooth.deviceAddress);
+                                      }
+                                      print("Start Button Pressed");
+                                      setState(() {
+                                        receiving = true;
+                                        chartData.clear();
+                                        Bluetooth.receivedDataList.clear();
+                                        Bluetooth.receivedDataList.add(0);
+                                      });
+                      
+                                      startListeningAndUpdateChart();
+                                    }),
+                              ),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width/4,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(right: 10),
+                              child: SizedBox(
+                                width: 120,
+                                height: 76,
+                                child: ElevatedButton(
                                   style: ElevatedButton.styleFrom(
                                     shape: const StadiumBorder(),
-                                    backgroundColor: Colors.orange,
+                                    backgroundColor: Colors.red,
                                   ),
-                                  child: Center(child: const Text('START')),
+                                  child: Align(
+                                      alignment: Alignment.center,
+                                      child: const Text('STOP')),
                                   onPressed: () async {
-                                    if (Bluetooth.connection == null) {
-                                      await Bluetooth.connectToDevice(
-                                          Bluetooth.deviceAddress);
-                                    }
-                                    print("Start Button Pressed");
+                                    print("Stop  Button Pressed");
+                                    Bluetooth.stopBluetooth();
                                     setState(() {
-                                      receiving = true;
+                                      receiving = false;
                                       chartData.clear();
                                       Bluetooth.receivedDataList.clear();
                                       Bluetooth.receivedDataList.add(0);
                                     });
-
-                                    startListeningAndUpdateChart();
-                                  }),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 45,
-                          ),
-                          Padding(
-                            padding: EdgeInsets.only(right: 10),
-                            child: SizedBox(
-                              width: 120,
-                              height: 76,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  shape: const StadiumBorder(),
-                                  backgroundColor: Colors.red,
+                      
+                                    if (_formKey.currentState?.validate() ??
+                                        false) {
+                                      String username = _name.text;
+                                      String id = _id.text;
+                                      String age = _age.text;
+                                      String sex = _sex.text;
+                                      String visit = _visitno.text;
+                                      String weight = _weight.text;
+                      
+                                      await DatabaseHelper().insertUserData(
+                                        username: username,
+                                        age: age,
+                                        gender: sex,
+                                        visit: visit,
+                                        area: area.toString(),
+                                        id: id,
+                                        weight: weight.toString(),
+                                      );
+                      
+                                      print("Data saved successfully");
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(builder: (context) {
+                                        return Report(
+                                          name: username,
+                                          age: age,
+                                          id: id,
+                                          sex: sex,
+                                          visit: visit,
+                                          weight: weight,
+                                        );
+                                      }));
+                                    }
+                                  },
                                 ),
-                                child: Align(
-                                    alignment: Alignment.center,
-                                    child: const Text('STOP')),
-                                onPressed: () async {
-                                  print("Stop  Button Pressed");
-                                  Bluetooth.stopBluetooth();
-                                  setState(() {
-                                    receiving = false;
-                                    chartData.clear();
-                                    Bluetooth.receivedDataList.clear();
-                                    Bluetooth.receivedDataList.add(0);
-                                  });
-
-                                  if (_formKey.currentState?.validate() ??
-                                      false) {
-                                    String username = _name.text;
-                                    String id = _id.text;
-                                    String age = _age.text;
-                                    String sex = _sex.text;
-                                    String visit = _visitno.text;
-                                    String weight = _weight.text;
-
-                                    await DatabaseHelper().insertUserData(
-                                      username: username,
-                                      age: age,
-                                      gender: sex,
-                                      visit: visit,
-                                      area: area.toString(),
-                                      id: id,
-                                      weight: weight.toString(),
-                                    );
-                                    Bluetooth.stopBluetooth();
-                                    print("Data saved successfully");
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(builder: (context) {
-                                      return screenfour();
-                                    }));
-                                  }
-                                },
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ],
                   ),
