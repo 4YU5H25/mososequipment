@@ -3,11 +3,9 @@
 import 'dart:async';
 
 import 'package:biomedicalfinal/db/database.dart';
-import 'package:biomedicalfinal/screen4.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:biomedicalfinal/chart.dart';
 import 'package:biomedicalfinal/bluetoothscreen.dart';
+import 'chartscreen.dart';
 
 class screenthree extends StatefulWidget {
   @override
@@ -33,6 +31,8 @@ class _screenthreeState extends State<screenthree> {
   TextEditingController _visitno = TextEditingController();
 
   TextEditingController _weight = TextEditingController();
+
+  TextEditingController _weightattachedtoDevice = TextEditingController();
 
   // =========== CHART ==================//
 
@@ -321,13 +321,58 @@ class _screenthreeState extends State<screenthree> {
                       SizedBox(
                         height: 22,
                       ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 18),
+                        child: Text(
+                          "Weight attached to the Device:",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Urbanist',
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 22,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 15, right: 15),
+                        child: Container(
+                          width: 280,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10.0),
+                            border: Border.all(),
+                          ),
+                          child: TextFormField(
+                            controller: _weightattachedtoDevice,
+                            textAlign: TextAlign.left, // Align text to the left
+                            decoration: InputDecoration(
+                              hintText: '',
+                              border: OutlineInputBorder(),
+                            ),
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please Enter a Weight';
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 22,
+                      ),
+                      Divider(
+                        color: Colors.pink,
+                      ),
+                      SizedBox(height: 22),
                       Expanded(
                         child: Row(
                           children: [
                             Padding(
                               padding: EdgeInsets.only(left: 10),
                               child: SizedBox(
-                                width: 120,
+                                width: 300,
                                 height: 76,
                                 child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
@@ -342,78 +387,29 @@ class _screenthreeState extends State<screenthree> {
                                       }
                                       print("Start Button Pressed");
                                       setState(() {
+                                        Bluetooth.area = 0;
                                         receiving = true;
                                         chartData.clear();
                                         Bluetooth.receivedDataList.clear();
                                         Bluetooth.receivedDataList.add(0);
                                       });
-
-                                      startListeningAndUpdateChart();
-                                    }),
-                              ),
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 4,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.only(right: 10),
-                              child: SizedBox(
-                                width: 120,
-                                height: 76,
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    shape: const StadiumBorder(),
-                                    backgroundColor: Colors.red,
-                                  ),
-                                  child: Align(
-                                      alignment: Alignment.center,
-                                      child: const Text('STOP')),
-                                  onPressed: () async {
-                                    if (kDebugMode) {
-                                      print("Stop  Button Pressed");
-                                    }
-                                    Bluetooth.stopBluetooth();
-                                    setState(() {
-                                      receiving = false;
-                                      chartData.clear();
-                                      Bluetooth.receivedDataList.clear();
-                                      Bluetooth.receivedDataList.add(0);
-                                    });
-
-                                    if (_formKey.currentState?.validate() ??
-                                        false) {
-                                      String username = _name.text;
-                                      String id = _id.text;
-                                      String age = _age.text;
-                                      String sex = _sex.text;
-                                      String visit = _visitno.text;
-                                      String weight = _weight.text;
-
-                                      await DatabaseHelper().insertUserData(
-                                        username: username,
-                                        age: age,
-                                        gender: sex,
-                                        visit: visit,
-                                        area: area.toString(),
-                                        id: id,
-                                        weight: weight.toString(),
-                                      );
-
-                                      print("Data saved successfully");
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(builder: (context) {
-                                        return Report(
-                                          name: username,
-                                          age: age,
-                                          id: id,
-                                          sex: sex,
-                                          visit: visit,
-                                          weight: weight,
+                                      if (Bluetooth.isConnected == true &&
+                                          _formKey.currentState!.validate()) {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => ChartScreen(
+                                                  _name.text,
+                                                  _id.text,
+                                                  _age.text,
+                                                  _sex.text,
+                                                  _visitno.text,
+                                                  _weight.text,
+                                                  _weightattachedtoDevice
+                                                      .text)),
                                         );
-                                      }));
-                                    }
-                                  },
-                                ),
+                                      }
+                                    }),
                               ),
                             ),
                           ],
@@ -423,39 +419,8 @@ class _screenthreeState extends State<screenthree> {
                   ),
                 ),
               ),
-              Visibility(
-                visible: isChartVisible,
-                child: Chart(
-                  chartData: chartData,
-                ),
-              ),
             ],
           ),
         ));
-  }
-
-  void startListeningAndUpdateChart() {
-    Future<void> updateChart() async {
-      // String newData = '';
-      while (receiving) {
-        // newData = Bluetooth.receivedDataList
-        //         ?.elementAt(Bluetooth.receivedDataList!.length - 2) ??
-        //     '';
-
-        double parsedData = Bluetooth.receivedDataList
-            .elementAt(Bluetooth.receivedDataList.length - 1);
-        area = Bluetooth.area;
-        setState(() {
-          chartData.add(parsedData);
-          if (kDebugMode) {
-            print("Chart data updated: $chartData");
-            print('area: $area');
-          }
-        });
-        await Future.delayed(Duration(milliseconds: 1000));
-      }
-    }
-
-    updateChart();
   }
 }

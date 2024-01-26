@@ -12,12 +12,12 @@ class DatabaseHelper {
   }
 
   Future<Database> initDatabase() async {
-  String path = join(await getDatabasesPath(), 'my_database.db');
-  return await openDatabase(
-    path,
-    version: 1,
-    onCreate: (Database db, int version) async {
-      await db.execute('''
+    String path = join(await getDatabasesPath(), 'my_database.db');
+    return await openDatabase(
+      path,
+      version: 1,
+      onCreate: (Database db, int version) async {
+        await db.execute('''
         CREATE TABLE user_data(
           id INTEGER PRIMARY KEY,
           username TEXT,
@@ -26,20 +26,40 @@ class DatabaseHelper {
           area TEXT,
           gender TEXT,
           uid TEXT,
-          weight TEXT
+          weight TEXT,
+          WeightAttached TEXT ,
+          WorkDone TEXT
         )
       ''');
-    },
-  );
-}
-
+      },
+    );
+  }
 
   Future<void> insertUserData(
-      {required String username, required String age, required String area, required String visit, required String gender,required String id,required String weight}) async {
+      {required String username,
+      required String age,
+      required String area,
+      required String visit,
+      required String gender,
+      required String id,
+      required String weight,
+      required String weightattached,
+      required String wd,
+      }) async {
     final Database db = await database;
     await db.insert(
       'user_data',
-      {'username': username, 'age': age, 'area': area, 'visit': visit, 'gender': gender, 'uid': id, 'weight':weight},
+      {
+        'username': username,
+        'age': age,
+        'area': area,
+        'visit': visit,
+        'gender': gender,
+        'uid': id,
+        'weight': weight,
+        'WeightAttached': weightattached,
+        'WorkDone': wd,
+      },
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }

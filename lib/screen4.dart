@@ -2,7 +2,7 @@
 
 import 'package:biomedicalfinal/db/database.dart';
 import 'package:flutter/material.dart';
-import 'package:pdf/pdf.dart';
+// import 'package:pdf/pdf.dart';
 
 class Report extends StatelessWidget {
   late final String? name, id, age, sex, visit, weight, area;

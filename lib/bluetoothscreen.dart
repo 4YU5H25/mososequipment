@@ -1,7 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'dart:async';
-import 'dart:ffi';
+import 'dart:convert';
 import 'package:biomedicalfinal/screen3.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,7 @@ import 'package:permission_handler/permission_handler.dart';
 class Bluetooth {
   static late BluetoothConnection? connection;
   static bool isConnected = false;
-  static String deviceAddress = "00:22:12:02:49:07";
+  static String deviceAddress = "00:21:13:03:BB:D9";
   static List<double> receivedDataList = [];
   static double area = 0;
 
@@ -19,6 +19,7 @@ class Bluetooth {
     Bluetooth.connection = await BluetoothConnection.toAddress(address);
     String pass = '1234';
     pass = pass.trim();
+    String receivedData = '';
     try {
       List<int> list = pass.codeUnits;
       Uint8List bytes = Uint8List.fromList(list);
@@ -28,20 +29,30 @@ class Bluetooth {
       print('Connected to Arduino');
 
       connection!.input!.listen((Uint8List data) {
-        // Handle received data as needed
-        String receivedData = String.fromCharCodes(data);
-        double parsedData = (data.first/10);
-        area += parsedData;
-        print('Received Data packet: ${data.join(', ')}');
+        // Concatenate the received data
+        receivedData += String.fromCharCodes(data);
 
-        // receivedDataList.add(int.tryParse(receivedData)?? 0);
-        receivedDataList.add(parsedData);
-        print('Received Data: $receivedData');
+        // Check if the complete message is received
+        if (receivedData.endsWith('\n')) {
+          receivedData = receivedData.trim();
 
-        Future.delayed(Duration(milliseconds: 100), () {
-          print('receivedDataList Length: ${receivedDataList.length}');
-          print('receivedDataList Contents: $receivedDataList');
-        });
+          try {
+            print('Received Data: $receivedData');
+            double parsedData = int.parse(receivedData.trim()) / 10;
+            receivedDataList.add(parsedData);
+            print("parsed hehe: $parsedData");
+            print('Received Data packet: ${data.join(', ')}');
+            print(receivedDataList);
+            // Reset receivedData for the next message
+            receivedData = '';
+          } catch (e) {
+            print('Error parsing data: $receivedData');
+            // Handle the error as needed
+          }
+
+          // Reset receivedData for the next message
+          receivedData = '';
+        }
       }, onDone: () {
         isConnected = false;
       });
@@ -131,7 +142,6 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
       // Permission denied, handle accordingly
       print("Location permission denied");
     } else if (status.isPermanentlyDenied) {
-      // Permission permanently denied, navigate to app settings
       openAppSettings();
     }
   }
