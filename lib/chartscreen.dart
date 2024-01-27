@@ -13,8 +13,7 @@ class ChartScreen extends StatefulWidget {
       {Key? key})
       : super(key: key);
   @override
-  _ChartScreenState createState() =>
-      _ChartScreenState();
+  _ChartScreenState createState() => _ChartScreenState();
 }
 
 class _ChartScreenState extends State<ChartScreen> {
@@ -36,7 +35,7 @@ class _ChartScreenState extends State<ChartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chart Screen'),
+        title: Text(receiving == true ? "Recording..." : "Recorded"),
       ),
       body: Container(
         child: Center(
@@ -50,8 +49,7 @@ class _ChartScreenState extends State<ChartScreen> {
               ),
               Center(
                 child: Visibility(
-                  visible:
-                      true, 
+                  visible: true,
                   child: Chart(
                     chartData: chartData,
                   ),
@@ -81,12 +79,6 @@ class _ChartScreenState extends State<ChartScreen> {
                     onPressed: () async {
                       print("Stop  Button Pressed");
                       Bluetooth.stopBluetooth();
-                      setState(() {
-                        receiving = false;
-                        chartData.clear();
-                        Bluetooth.receivedDataList.clear();
-                        Bluetooth.receivedDataList.add(0);
-                      });
 
                       String username = widget.name;
                       String id = widget.id;
@@ -95,7 +87,7 @@ class _ChartScreenState extends State<ChartScreen> {
                       String visit = widget.visitno;
                       String weight = widget.weight;
                       String weightattached = widget.weightattached;
-
+                      double wd = (area * (double.parse(weightattached)) * 0.098);
                       await DatabaseHelper().insertUserData(
                         username: username,
                         age: age,
@@ -105,9 +97,17 @@ class _ChartScreenState extends State<ChartScreen> {
                         id: id,
                         weight: weight.toString(),
                         weightattached: weightattached.toString(),
-                        wd: (area * (double.parse(weightattached)) * 9.8)
-                            .toString(),
+                        wd: wd.toString(),
+                        samples: chartData,
                       );
+                      print("Chart data hehe: $chartData");
+                      print("Work Done $wd");
+                      setState(() {
+                        receiving = false;
+                        chartData.clear();
+                        Bluetooth.receivedDataList.clear();
+                        Bluetooth.receivedDataList.add(0);
+                      });
                       print("Data saved successfully");
                       Navigator.of(context)
                           .push(MaterialPageRoute(builder: (context) {
@@ -117,7 +117,7 @@ class _ChartScreenState extends State<ChartScreen> {
                   ),
                 ),
               ),
-            ], 
+            ],
           ),
         ),
       ),

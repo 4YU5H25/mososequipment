@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_final_fields, use_build_context_synchronously
 
-import 'dart:async';
 
 import 'package:biomedicalfinal/db/database.dart';
 import 'package:flutter/material.dart';

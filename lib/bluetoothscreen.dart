@@ -11,7 +11,7 @@ import 'package:permission_handler/permission_handler.dart';
 class Bluetooth {
   static late BluetoothConnection? connection;
   static bool isConnected = false;
-  static String deviceAddress = "00:21:13:03:BB:D9";
+  static String deviceAddress = "00:22:12:02:49:07";
   static List<double> receivedDataList = [];
   static double area = 0;
 
@@ -125,10 +125,33 @@ class _BluetoothScreenState extends State<BluetoothScreen> {
   }
 
   Future<void> requestPermissions() async {
+    await requestStoragePermission();
     await requestLocationPermission();
     await requestBluetoothPermission();
     await requestBluetoothScanPermission();
     await requestConnectPermission();
+  }
+
+  Future<bool> requestStoragePermission() async {
+    var status = await Permission.storage.request();
+
+    if (status == PermissionStatus.granted) {
+      // Permission granted, you can access storage
+      print('Storage permission granted');
+      return true;
+    } else if (status == PermissionStatus.denied) {
+      // Permission denied
+      print('Storage permission denied');
+      return false;
+    } else if (status == PermissionStatus.permanentlyDenied) {
+      // Permission permanently denied
+      print('Storage permission permanently denied. Open app settings.');
+      await openAppSettings();
+      return false;
+    }
+
+    // If status is restricted, unavailable, or limited, handle accordingly
+    return false;
   }
 
   Future<void> requestLocationPermission() async {

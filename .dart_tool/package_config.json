@@ -129,9 +129,9 @@
     },
     {
       "name": "js",
-      "rootUri": "file:///C:/Users/Ayush/AppData/Local/Pub/Cache/hosted/pub.dev/js-0.7.0",
+      "rootUri": "file:///C:/Users/Ayush/AppData/Local/Pub/Cache/hosted/pub.dev/js-0.6.7",
       "packageUri": "lib/",
-      "languageVersion": "3.1"
+      "languageVersion": "2.19"
     },
     {
       "name": "lints",
@@ -374,7 +374,7 @@
       "languageVersion": "2.12"
     }
   ],
-  "generated": "2024-01-26T11:20:01.593862Z",
+  "generated": "2024-01-27T11:12:13.263643Z",
   "generator": "pub",
   "generatorVersion": "3.1.2"
 }
