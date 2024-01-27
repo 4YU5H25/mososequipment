@@ -4,19 +4,28 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
 
 class Pdf {
-  late String name, id, workDone, visitno, sex, weight, weightattached, Samples;
+  late String name,
+      id,
+      workDone,
+      age,
+      visitno,
+      sex,
+      weight,
+      weightattached,
+      samples;
   Pdf(
     this.name,
     this.id,
     this.workDone,
+    this.age,
     this.visitno,
     this.sex,
     this.weight,
     this.weightattached,
-    this.Samples,
+    this.samples,
   );
 
-  void generate_pdf() async {
+   Future<String> generate_pdf() async {
     final pdf = Document();
 
     final page = Page(
@@ -37,23 +46,20 @@ class Pdf {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(children: [
-                      Text('Patient Name:'),
-                      Text(name),
+                      Text('Patient Name: $name'),
                     ]),
                     Row(children: [
-                      Text('Patient ID: '),
-                      Text(id),
+                      Text('Patient ID: $id'),
                     ]),
                     Text('Visit Number: $visitno'),
                     Row(children: [
-                      Text('Age: '),
-                      Text(workDone),
+                      Text('Age: $age'),
                     ]),
                     Text('Sex: $sex'),
                     Text('Work Done: $workDone'),
                     Text('Weight: $weight'),
                     Text('Weight Attached: $weightattached'),
-                    Text('Samples: $Samples'),
+                    Text('Samples: $samples'),
                   ],
                 ),
               ),
@@ -63,7 +69,9 @@ class Pdf {
       },
     );
     pdf.addPage(page);
-    final file = File('storage/emulated/0/Downloads/$name.pdf');
+    final file = File('storage/emulated/0/Download/$name.pdf');
     await file.writeAsBytes(await pdf.save());
+
+    return 'storage/emulated/0/Download/$name.pdf';
   }
 }

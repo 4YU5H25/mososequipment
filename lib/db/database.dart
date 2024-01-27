@@ -75,6 +75,18 @@ class DatabaseHelper {
     final Database db = await database;
     return await db.query('user_data');
   }
+
+  Future<Map<String, dynamic>?> fetchLastRow() async {
+    final db = await database;
+    final List<Map<String, dynamic>> result = await db.query(
+      'user_data',
+      orderBy: 'id DESC',
+      limit: 1,
+    );
+
+    return result.isNotEmpty ? result.first : null;
+  }
+
 }
 
 class DatabaseTable extends StatefulWidget {

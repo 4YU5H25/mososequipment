@@ -11,7 +11,7 @@ import 'package:permission_handler/permission_handler.dart';
 class Bluetooth {
   static late BluetoothConnection? connection;
   static bool isConnected = false;
-  static String deviceAddress = "00:22:12:02:49:07";
+  static String deviceAddress = "00:21:13:03:BB:D9";
   static List<double> receivedDataList = [];
   static double area = 0;
 

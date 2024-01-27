@@ -7,6 +7,8 @@ import 'db/database.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'pdfile.dart';
+import 'pdfviewer.dart';
 
 class screenfour extends StatelessWidget {
   @override
@@ -49,8 +51,22 @@ class screenfour extends StatelessWidget {
                   onPressed: () async {
                     print('Generate button pressed');
                     await requestStoragePermission();
-                    // await _generateAndDownloadCSV(context);
-                    await _showUserData(context);
+                    final lastRowData = await DatabaseHelper().fetchLastRow();
+                    Pdf pdf = Pdf(
+                        lastRowData!['username'],
+                        lastRowData['uid'],
+                        lastRowData['WorkDone'],
+                        lastRowData['age'],
+                        lastRowData['visit'],
+                        lastRowData['gender'],
+                        lastRowData['weight'],
+                        lastRowData['WeightAttached'],
+                        lastRowData['Samples']);
+                    pdf.generate_pdf();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Patient Report Saved")));
+                    String name = lastRowData['username'];
+                    PdfViewerPage('storage/emulated/0/Download/$name.pdf');
                   },
                 )),
           ),
