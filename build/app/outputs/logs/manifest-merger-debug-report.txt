@@ -32,7 +32,9 @@ MERGED from [:permission_handler_android] A:\Code\Git\biomedicalfinal\build\perm
 MERGED from [:flutter_bluetooth_serial] A:\Code\Git\biomedicalfinal\build\flutter_bluetooth_serial\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-14:12
 MERGED from [:open_file] A:\Code\Git\biomedicalfinal\build\open_file\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-23:12
 MERGED from [:sqflite] A:\Code\Git\biomedicalfinal\build\sqflite\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
+MERGED from [:syncfusion_flutter_pdfviewer] A:\Code\Git\biomedicalfinal\build\syncfusion_flutter_pdfviewer\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:url_launcher_android] A:\Code\Git\biomedicalfinal\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-16:12
+MERGED from [:device_info_plus] A:\Code\Git\biomedicalfinal\build\device_info_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:path_provider_android] A:\Code\Git\biomedicalfinal\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\Ayush\.gradle\caches\transforms-3\ae81e06d24c799147c26814497a2a305\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:17:1-23:12
 MERGED from [androidx.window:window:1.0.0-beta04] C:\Users\Ayush\.gradle\caches\transforms-3\25cee5f028ac2a6b79fd6278ff5b59e2\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:17:1-33:12
@@ -134,8 +136,12 @@ MERGED from [:open_file] A:\Code\Git\biomedicalfinal\build\open_file\intermediat
 MERGED from [:open_file] A:\Code\Git\biomedicalfinal\build\open_file\intermediates\merged_manifest\debug\AndroidManifest.xml:6:5-8:41
 MERGED from [:sqflite] A:\Code\Git\biomedicalfinal\build\sqflite\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:sqflite] A:\Code\Git\biomedicalfinal\build\sqflite\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:syncfusion_flutter_pdfviewer] A:\Code\Git\biomedicalfinal\build\syncfusion_flutter_pdfviewer\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:syncfusion_flutter_pdfviewer] A:\Code\Git\biomedicalfinal\build\syncfusion_flutter_pdfviewer\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:url_launcher_android] A:\Code\Git\biomedicalfinal\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:url_launcher_android] A:\Code\Git\biomedicalfinal\build\url_launcher_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:device_info_plus] A:\Code\Git\biomedicalfinal\build\device_info_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
+MERGED from [:device_info_plus] A:\Code\Git\biomedicalfinal\build\device_info_plus\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:path_provider_android] A:\Code\Git\biomedicalfinal\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [:path_provider_android] A:\Code\Git\biomedicalfinal\build\path_provider_android\intermediates\merged_manifest\debug\AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.window:window-java:1.0.0-beta04] C:\Users\Ayush\.gradle\caches\transforms-3\ae81e06d24c799147c26814497a2a305\transformed\jetified-window-java-1.0.0-beta04\AndroidManifest.xml:19:5-21:41

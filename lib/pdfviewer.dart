@@ -1,6 +1,7 @@
-import 'package:biomedicalfinal/pdfile.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class PdfViewerPage extends StatelessWidget {
   PdfViewerPage(this.filePath);
@@ -12,9 +13,12 @@ class PdfViewerPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Patient Report'),
       ),
-      body: PDFView(
-        filePath: filePath,
-      ),
+      // body: PDFView(
+      //   filePath: filePath,
+      //   fitPolicy: FitPolicy.WIDTH,
+
+      // ),
+      body: SfPdfViewer.file(File(filePath)),
     );
   }
 }

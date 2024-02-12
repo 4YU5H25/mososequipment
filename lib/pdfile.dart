@@ -25,7 +25,7 @@ class Pdf {
     this.samples,
   );
 
-   Future<String> generate_pdf() async {
+  Future<String> generate_pdf() async {
     final pdf = Document();
 
     final page = Page(
@@ -46,20 +46,70 @@ class Pdf {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(children: [
-                      Text('Patient Name: $name'),
+                      Text('Patient Name: ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            font: Font.times(),
+                          )),
+                      Text(name, style: TextStyle(font: Font.times())),
                     ]),
                     Row(children: [
-                      Text('Patient ID: $id'),
+                      Text('Patient ID: ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            font: Font.times(),
+                          )),
+                      Text(id, style: TextStyle(font: Font.times())),
                     ]),
-                    Text('Visit Number: $visitno'),
                     Row(children: [
-                      Text('Age: $age'),
+                      Text('Age: ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            font: Font.times(),
+                          )),
+                      Text(age, style: TextStyle(font: Font.times())),
                     ]),
-                    Text('Sex: $sex'),
-                    Text('Work Done: $workDone'),
-                    Text('Weight: $weight'),
-                    Text('Weight Attached: $weightattached'),
-                    Text('Samples: $samples'),
+                    Row(children: [
+                      Text('Sex: ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            font: Font.times(),
+                          )),
+                      Text(sex, style: TextStyle(font: Font.times())),
+                    ]),
+                    Row(children: [
+                      Text('Weight: ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            font: Font.times(),
+                          )),
+                      Text(weight, style: TextStyle(font: Font.times())),
+                    ]),
+                    Row(children: [
+                      Text('Weight Attached to equipment: ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            font: Font.times(),
+                          )),
+                      Text(weightattached,
+                          style: TextStyle(font: Font.times())),
+                    ]),
+                    Row(children: [
+                      Text('Work Done: ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            font: Font.times(),
+                          )),
+                      Text(workDone, style: TextStyle(font: Font.times())),
+                    ]),
+                    Row(children: [
+                      Text('Samples: ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            font: Font.times(),
+                          )),
+                      Text(samples, style: TextStyle(font: Font.courier())),
+                    ]),
                   ],
                 ),
               ),

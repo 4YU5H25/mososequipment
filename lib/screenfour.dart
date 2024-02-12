@@ -9,6 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'pdfile.dart';
 import 'pdfviewer.dart';
+import 'package:intl/intl.dart';
 
 class screenfour extends StatelessWidget {
   @override
@@ -117,8 +118,9 @@ class screenfour extends StatelessWidget {
 
     Directory documentsDir = await getApplicationDocumentsDirectory();
     // String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
-    String timestamp =
-        DateTime.now().toString().replaceAll(RegExp(r'[^0-9]'), '');
+    String timestamp = DateFormat('yyyyMMddHHmm').format(DateTime.now());
+    print("timestamp: $timestamp");
+
     String filePath = '${documentsDir.path}/Report_$timestamp.csv';
     print("DIrecturyyyy: $documentsDir");
     print("filleee pathhh: $filePath");
@@ -138,14 +140,14 @@ class screenfour extends StatelessWidget {
 
         // Write CSV data with header
         await File(filePath).writeAsString(
-          const ListToCsvConverter(fieldDelimiter: ',')
+          const ListToCsvConverter(fieldDelimiter: '  ')
               .convert(existingCsvData),
           encoding: utf8,
         );
       } else {
         // Write CSV data with header
         await File(filePath).writeAsString(
-          const ListToCsvConverter(fieldDelimiter: ',')
+          const ListToCsvConverter(fieldDelimiter: '  ')
               .convert([header] + newCsvData),
           encoding: utf8,
         );
